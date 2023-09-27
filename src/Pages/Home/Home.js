@@ -1,4 +1,6 @@
+import { Products } from "../../Section";
+
 const Home =()=>{
-    return <h1>Hello from Home</h1>
+    return <Products />
 }
 export default Home;

@@ -9,7 +9,7 @@ display:flex;
 align-items:center;
 `;
 const Headertop = styled.div`
-padding-bottom:23px;
+padding:15px 0px 23px;
 border-bottom:1px solid rgba(1,15,28,.1);
 & ${Container} {
     justify-content: space-between;
