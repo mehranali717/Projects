@@ -1,9 +1,4 @@
 import { Product } from "../../Components";
-import product1 from "../../Assets/Images/product-cat-1.png";
-import product2 from "../../Assets/Images/product-cat-2.png";
-import product3 from "../../Assets/Images/product-cat-3.png";
-import product4 from "../../Assets/Images/product-cat-4.png";
-import product5 from "../../Assets/Images/product-cat-5.png";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 const Container = styled.div`
@@ -30,13 +25,6 @@ const Products =()=>{
     useEffect(()=>{
         getData();
     },[])
-    const products = [
-        {image:product1 , title:"CPU Heat Pipes"},
-        {image:product2 , title:"Headphones"},
-        {image:product3, title:"Mobiles"},
-        {image:product4 , title:"Smart Watch"},
-        {image:product5 , title:"Blutooths"},
-    ]
     return <Container>
                 <Product  products={productList}/>
     </Container>

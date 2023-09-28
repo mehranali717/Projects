@@ -23,7 +23,7 @@ text-transform:capitalize;
 const Navbar =({nawItems})=>{
     return <Nav>
                 <Navlist>{nawItems.map((item , index)=><Link to={item.title}  key={index}>
-                <Listitem>{item.title}{(item.title!=="Coupons" && item.title!=="Contact")
+                <Listitem>{item.title}{(item.title!=="coupons" && item.title!=="contact")
                 &&<FontAwesomeIcon icon={item.icon}/>}</Listitem> </Link>)}</Navlist>
     </Nav>
 }

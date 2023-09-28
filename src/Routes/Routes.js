@@ -1,7 +1,6 @@
 import { Navigate, useRoutes } from "react-router-dom";
 import Mainlayout from "../Layoutes/Mainlayout/Mainlayout";
 import {Blog, Contact, Coupons, Home, ProductDetail, Products, Shop} from "../Pages/";
-
 const Routes =()=>{
     let routes = useRoutes([
         {

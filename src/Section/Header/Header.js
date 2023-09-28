@@ -1,4 +1,4 @@
-import {Categories, Icon, Logo, Navbar} from "../../Components";
+import {Categories, Cart, Logo, Navbar} from "../../Components";
 import styled from "styled-components";
 import logo from "../../Assets/Images/logo.png"
 const Headertag = styled.header``;
@@ -18,7 +18,6 @@ border-bottom:1px solid rgba(1,15,28,.1);
 const Headerottom = styled.div``;
 const Header =()=>{
     const Icons = [
-        {icon:"heart"},
         {icon:"cart-shopping"},
     ]
     const nawItems = [
@@ -33,7 +32,7 @@ const Header =()=>{
             <Headertop>
                 <Container>
                         <Logo logo={logo}/>
-                        <Icon icon={Icons}/>
+                        <Cart icon={Icons}/>
                 </Container>
             </Headertop>
             <Headerottom>

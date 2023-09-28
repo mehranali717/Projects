@@ -2,6 +2,7 @@ import styled from "styled-components";
 import {useLocation} from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { increment, decrement } from '../../Redux/Reducer';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const Imagewrapper = styled.div`
 width:45%;
 height:500px;
@@ -52,55 +53,72 @@ font-weight:500;
 display:block;
 margin-bottom:15px;
 `
-const Color = styled.span`
-color:#010f1c;
-font-size:15px;
-font-weight:400;
-line-height:1;
-padding-bottom:5px;
-display:inline-block;
-`
 const Counter = styled.span`
 height:40px;
-width:120px;
+width:180px;
 background-color:#f3f5f6;
 display:flex;
 justify-content:space-between;
 align-items:center;
 padding:0px 10px;
 `
-const Countbtn = styled.button`
+const Countbtn = styled(FontAwesomeIcon)`
 border:none;
 color:#010f1c;
-font-size:25px;
+font-size:15px;
 font-weight:500;
+cursor:pointer;
 `
 const Qty = styled.span`
 color:#010f1c;
 font-size:20px;
 font-weight:500;
 `
+const AddToCart = styled.button`
+border:1px solid #e0e2e3;
+font-size:16px;
+text-align:center;
+width:100%;
+cursor:pointer;
+color:#010f1c;
+padding:9px 30px;
+font-weight:500;
+transition:0.6s;
+letter-spacing:2px;
+&:hover {
+    background-color:#010f1c;
+    border:1px solid #010f1c;
+    color:#fff;
+}
+`
+const Bookorder = styled.div`
+display:flex;
+gap:50px;
+`
 const ProductDetail =()=>{
-    const counter = useSelector((state) => state.counter.value);
-  const dispatch = useDispatch();
+    const count = useSelector((state) => state.count.value);
+    const dispatch = useDispatch();
     const location = useLocation();
     const item = location.state.item;
-    console.log({item})
-    return <Container>
-            <Imagewrapper><Image src={item.image}></Image></Imagewrapper>
-            <PDWrapper>
-                <Subtitle>{item.title.slice(0,6)}</Subtitle>
-                <Title>{item.title.slice(0,12)}</Title>
-                <Statebadge>in-stock</Statebadge>
-                <Ratingbadge>({item.rating.rate} Reviews)</Ratingbadge>
-                <Paragraph>{item.description.slice(0,130)}</Paragraph>
-                <Pricing>${item.price}</Pricing>
-                {/* <Color>Color:</Color> */}
-                <Counter><Countbtn onClick={() => dispatch(decrement())}>-</Countbtn>
-                <Qty>{counter}</Qty>
-                <Countbtn onClick={() => dispatch(increment())}>+</Countbtn>
-                </Counter>
-            </PDWrapper>
-    </Container>
+    return <>
+            <Container>
+                <Imagewrapper><Image src={item.image}></Image></Imagewrapper>
+                <PDWrapper>
+                    <Subtitle>{item.title.slice(0,6)}</Subtitle>
+                    <Title>{item.title.slice(0,12)}</Title>
+                    <Statebadge>in-stock</Statebadge>
+                    <Ratingbadge>({item.rating.rate} Reviews)</Ratingbadge>
+                    <Paragraph>{item.description.slice(0,130)}</Paragraph>
+                    <Pricing>${item.price}</Pricing>
+                    <Bookorder>
+                        <Counter><Countbtn icon="fa-minus" onClick={() => dispatch(decrement())} />
+                        <Qty>{count}</Qty>
+                        <Countbtn icon="fa-plus" onClick={() => dispatch(increment())}/>
+                        </Counter>
+                        <AddToCart>Add To Cart</AddToCart>
+                    </Bookorder>
+                </PDWrapper>
+            </Container>
+    </>
 }
 export default ProductDetail;

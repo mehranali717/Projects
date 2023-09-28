@@ -1,4 +1,4 @@
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 const Imagewrapper = styled.button`
   border:2px solid #02f2ea;
@@ -42,6 +42,24 @@ color:#55585b;
 font-size:14px;
 font-weight:400;
 `
+const AddToCart = styled.button`
+border:1px solid #e0e2e3;
+font-size:16px;
+margin-top:15px;
+text-align:center;
+width:100%;
+cursor:pointer;
+color:#010f1c;
+padding:9px 30px;
+font-weight:500;
+transition:0.6s;
+letter-spacing:2px;
+&:hover {
+    background-color:#010f1c;
+    border:1px solid #010f1c;
+    color:#fff;
+}
+`
 const Product =({products})=>{
  const navigate = useNavigate()
   const onClick =(item)=>{
@@ -55,6 +73,7 @@ const Product =({products})=>{
                 <Imagewrapper onClick={()=>onClick(item)}><Image src={item.image} alt="some product"/></Imagewrapper>
                 <Title>{item.title.slice(0,12)}</Title>
                 <Span>3 products</Span>
+                <AddToCart>Add To Cart</AddToCart>
             </Thumbnail>})}
     </Productouter>
 }
