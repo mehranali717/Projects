@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 // import { increment, decrement } from '../../Redux/AddtToCartSlice';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { addtocart, increment, decrement } from "../../Redux/AddtToCartSlice";
+import Cart from "../../Components/Cart/Cart";
 const Imagewrapper = styled.div`
 width:45%;
 height:500px;
@@ -97,11 +98,10 @@ display:flex;
 gap:50px;
 `
 const ProductDetail =()=>{
-    const count = useSelector((state) => state.count.count);
+    const cartItems = useSelector((state)=>state.addtocart.cart);
     const dispatch = useDispatch();
     const location = useLocation();
     const item = location.state.item;
-
     return <Container>
                 <Imagewrapper><Image src={item.image}></Image></Imagewrapper>
                 <PDWrapper>
@@ -112,9 +112,9 @@ const ProductDetail =()=>{
                     <Paragraph>{item.description.slice(0,130)}</Paragraph>
                     <Pricing>${item.price}</Pricing>
                     <Bookorder>
-                        <Counter><Countbtn icon="fa-minus" onClick={() => dispatch(decrement(item))} />
-                        <Qty>{count}</Qty>
-                        <Countbtn icon="fa-plus" onClick={() => dispatch(increment(item))}/>
+                        <Counter><Countbtn icon="fa-minus" onClick={() => dispatch(decrement(item.id))} />
+                        <Qty>{cartItems.length>0 && cartItems.find(items =>items.id===item.id).quantity || 0} </Qty>
+                        <Countbtn icon="fa-plus" onClick={() => dispatch(increment(item.id))}/>
                         </Counter>
                         <AddToCart onClick={()=> dispatch(addtocart(item))}>Add To Cart</AddToCart>
                     </Bookorder>

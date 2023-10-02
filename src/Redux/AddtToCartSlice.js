@@ -1,19 +1,27 @@
 import { createSlice } from "@reduxjs/toolkit";
 const addtocartSlice = createSlice({
   name: "addtocart",
-  initialState: { product: [],count:0 , isDisplayed: false},
+  initialState: {cart:[], isDisplayed: false},
   reducers: {
     addtocart: (state, actions) => {
-      state.product.push(actions.payload);
+      const itemInCart = state.cart.find((item)=>item.id ===actions.payload.id)
+      if(itemInCart){
+        itemInCart.quantity++;
+      }
+      else{
+        state.cart.push({...actions.payload , quantity:1});
+      }
     },
     removeCartItems: (state, actions) => {
-      state.product = state.product.filter(i => i.id !== actions.payload);
+      state.cart = state.cart.filter(i => i.id !== actions.payload);
     },
-    increment: (state) => {
-      state.count += 1;
+    increment: (state, action) => {
+      const item = state.cart.find((item) => item.id === action.payload);
+      if(item) item.quantity++;
     },
-    decrement: (state) => {
-      state.count -= 1;
+    decrement: (state, action) => {
+      const item = state.cart.find((item) => item.id === action.payload);
+      if(item) item.quantity--;
     },
     displayModal:(state)=>{
       state.isDisplayed=(!state.isDisplayed);

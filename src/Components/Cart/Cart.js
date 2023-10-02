@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { displayModal, removeCartItems } from "../../Redux/AddtToCartSlice";
-import React from "react";
+import React, { useState } from "react";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 AOS.init();
@@ -131,26 +131,15 @@ const Scrollable = styled.div`
 `
 const ItemRemover = styled.span`
   background: transparent;
-  color:#010f1c;
+  color:#4f4f4f;
   cursor:pointer;
   font-size: 15px;
   font-weight:light;
 `
 const Cart = ({ icon }) => {
     const modal = useSelector((state)=>state.modal.isDisplayed);
-    const count = useSelector((state) => state.count.count);
-    const cartItems = useSelector((state)=>state.addtocart.product);
-    const newItems = useSelector((state)=>state.removeCartItems.product);
-    // const removeCartItemHandler = (id)=>{
-    //   cartItems.forEach(element => {
-    //     if(element.id !== id)
-    //         {
-    //           console.log({element});
-    //         }
-    //   });
-    // const filteredList = cartItems.filter((item)=>item.id !== id);
-    //     console.log("145",filteredList);
-    // }
+    const cartItems = useSelector((state)=>state.addtocart.cart);
+    console.log({cartItems});
     const dispatch = useDispatch();
   return <>
            <IconWrapper>
@@ -172,9 +161,8 @@ const Cart = ({ icon }) => {
                         <React.Fragment key={index}>
                             <Body>
                               <Image src={item.image } alt="img"/> 
-                              <Itemtitle>{item.title} (X{count})</Itemtitle>
+                              <Itemtitle>{item.title} (X{item.quantity})</Itemtitle>
                               <ItemRemover onClick={()=> dispatch(removeCartItems(item.id))}><FontAwesomeIcon icon="xmark"/></ItemRemover>
-                              {/* <ItemRemover onClick={()=>removeCartItemHandler(item.id)}><FontAwesomeIcon icon="xmark"/></ItemRemover> */}
                             </Body>
                           </React.Fragment>
                       ))}
