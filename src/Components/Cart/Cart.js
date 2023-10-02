@@ -1,8 +1,11 @@
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { displayModal } from "../../Redux/Modal/Reducer";
+import { displayModal, removeCartItems } from "../../Redux/AddtToCartSlice";
+import React from "react";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+AOS.init();
 const IconWrapper = styled.div`
   width: 60px;
   display: flex;
@@ -32,36 +35,153 @@ const IconinnerWrapper = styled.span`
   position: relative;
   cursor:pointer;
 `;
-const CustomModal = styled(Modal)`
-  &.slide-from-right .modal-dialog {
-    transform: translateX(100%);
-    transition: transform 0.3s ease-in-out;
+const Image = styled.img`
+  width:70px;
+  height:70px;
+  padding:10px;
+  border:1px solid #eaebed;
+`
+const Body = styled.div`
+  display:flex;
+  padding:20px 0px;
+  border-bottom:1px solid #eaebed;
+`
+const Cartwrapper = styled.div`
+  padding:0px 25px;
+  width:350px;
+  min-height:100%;
+  position:fixed;
+  background-color:#bfbfbf;
+  right:0;
+  top:0;
+`
+const CartHeader = styled.div`
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border-bottom:1px solid #eaebed;
+`
+const CartTitle = styled.h3`
+  font-size: 16px;
+  font-weight: 600;
+  text-transform: capitalize;
+  color:#010f1c;
+  line-height:1.2;
+  margin-bottom:0px;
+  padding:20px 0px;
+`
+const Span = styled.span`
+  padding:15px 0px;
+  border-bottom:1px solid #eaebed;
+  display:block;
+  padding:15px 0px;
+  border-bottom:1px solid #eaebed;
+  display:block;
+`
+const Itemtitle = styled.h3`
+  color:#010f1c;
+  font-size:15px;
+  color:#010f1c;
+  font-size:15px;
+  padding:0px 15px;
+  margin-bottom:0px;
+`
+const Totalbills = styled.div`
+  padding:15px 0px 30px;
+  display:flex;
+  border-top:1px solid #eaebed;
+  border-bottom:1px solid #eaebed;
+  padding:15px 0px 30px;
+  display:flex;
+  border-top:1px solid #eaebed;
+  border-bottom:1px solid #eaebed;
+  justify-content:space-between;
+`
+const Subtotal = styled.span` 
+  font-size:15px;
+  color:#010f1c;
+  font-weight:500;
+`
+const Button = styled.button`
+  border:1px solid #3f3f3f;
+  font-size:16px;
+  text-align:center;
+  width:100%;
+  cursor:pointer;
+  color:#fff;
+  padding:9px 30px;
+  font-weight:500;
+  transition:0.6s;
+  letter-spacing:2px;
+  background-color:#010f1c;
+`
+const Hamburger = styled.span`
+  background: transparent;
+  color:#010f1c;
+  cursor:pointer;
+  font-size: 22px;
+  font-weight:300;
+`
+const Scrollable = styled.div`
+  height:400px;
+  overflow-y: auto;
+  &::-webkit-scrollbar{
+    display:none;
   }
-
-  &.slide-from-right.modal-open .modal-dialog {
-    transform: translateX(0);
-  }
-`;
+`
+const ItemRemover = styled.span`
+  background: transparent;
+  color:#010f1c;
+  cursor:pointer;
+  font-size: 15px;
+  font-weight:light;
+`
 const Cart = ({ icon }) => {
-    const modal = useSelector((state)=>state.modal.value);
+    const modal = useSelector((state)=>state.modal.isDisplayed);
+    const count = useSelector((state) => state.count.count);
+    const cartItems = useSelector((state)=>state.addtocart.product);
+    const newItems = useSelector((state)=>state.removeCartItems.product);
+    // const removeCartItemHandler = (id)=>{
+    //   cartItems.forEach(element => {
+    //     if(element.id !== id)
+    //         {
+    //           console.log({element});
+    //         }
+    //   });
+    // const filteredList = cartItems.filter((item)=>item.id !== id);
+    //     console.log("145",filteredList);
+    // }
     const dispatch = useDispatch();
   return <>
            <IconWrapper>
               {icon.map((icon, index) => (
                 <IconinnerWrapper key={index}>
                   <FontAwesomeIcon onClick={() => dispatch(displayModal())} icon={icon.icon} />
-                  <Circularbadge>0</Circularbadge>
+                  <Circularbadge>{cartItems.length}</Circularbadge>
                 </IconinnerWrapper>
               ))}
-    </IconWrapper>
-              <CustomModal isOpen={modal} className="slide-from-right">
-                <ModalHeader>Shopping Cart</ModalHeader>
-                <ModalBody>Add $200.00 more to qualify for free shipping</ModalBody>
-                <ModalFooter>
-                  <p>Your Cart Is Empty</p>
-                  <Button onClick={()=>dispatch(displayModal())}>OK</Button>
-                </ModalFooter>
-              </CustomModal>
-  </>;
+            </IconWrapper>
+            {modal && <Cartwrapper data-aos="fade-left">
+              <CartHeader>
+                <CartTitle>Shopping Cart</CartTitle>
+                <Hamburger onClick={()=>dispatch(displayModal())}><FontAwesomeIcon icon="xmark"/></Hamburger>
+              </CartHeader>
+              <Span>You are eligible for Shipping</Span>
+              <Scrollable>
+              {cartItems.map((item , index)=>(
+                        <React.Fragment key={index}>
+                            <Body>
+                              <Image src={item.image } alt="img"/> 
+                              <Itemtitle>{item.title} (X{count})</Itemtitle>
+                              <ItemRemover onClick={()=> dispatch(removeCartItems(item.id))}><FontAwesomeIcon icon="xmark"/></ItemRemover>
+                              {/* <ItemRemover onClick={()=>removeCartItemHandler(item.id)}><FontAwesomeIcon icon="xmark"/></ItemRemover> */}
+                            </Body>
+                          </React.Fragment>
+                      ))}
+                </Scrollable>
+                <Totalbills><Subtotal>Subtotal :</Subtotal> <Subtotal>$119</Subtotal></Totalbills>
+                 <Button onClick={()=>dispatch(displayModal())}>OK</Button>
+              </Cartwrapper>}
+  </>; 
 };
 export default Cart;

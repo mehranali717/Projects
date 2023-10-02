@@ -1,8 +1,9 @@
 import styled from "styled-components";
 import {useLocation} from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { increment, decrement } from '../../Redux/Reducer';
+// import { increment, decrement } from '../../Redux/AddtToCartSlice';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { addtocart, increment, decrement } from "../../Redux/AddtToCartSlice";
 const Imagewrapper = styled.div`
 width:45%;
 height:500px;
@@ -96,29 +97,28 @@ display:flex;
 gap:50px;
 `
 const ProductDetail =()=>{
-    const count = useSelector((state) => state.count.value);
+    const count = useSelector((state) => state.count.count);
     const dispatch = useDispatch();
     const location = useLocation();
     const item = location.state.item;
-    return <>
-            <Container>
+
+    return <Container>
                 <Imagewrapper><Image src={item.image}></Image></Imagewrapper>
                 <PDWrapper>
-                    <Subtitle>{item.title.slice(0,6)}</Subtitle>
+                    <Subtitle>{item.title.slice(0,6)}</Subtitle>    
                     <Title>{item.title.slice(0,12)}</Title>
                     <Statebadge>in-stock</Statebadge>
                     <Ratingbadge>({item.rating.rate} Reviews)</Ratingbadge>
                     <Paragraph>{item.description.slice(0,130)}</Paragraph>
                     <Pricing>${item.price}</Pricing>
                     <Bookorder>
-                        <Counter><Countbtn icon="fa-minus" onClick={() => dispatch(decrement())} />
+                        <Counter><Countbtn icon="fa-minus" onClick={() => dispatch(decrement(item))} />
                         <Qty>{count}</Qty>
-                        <Countbtn icon="fa-plus" onClick={() => dispatch(increment())}/>
+                        <Countbtn icon="fa-plus" onClick={() => dispatch(increment(item))}/>
                         </Counter>
-                        <AddToCart>Add To Cart</AddToCart>
+                        <AddToCart onClick={()=> dispatch(addtocart(item))}>Add To Cart</AddToCart>
                     </Bookorder>
                 </PDWrapper>
             </Container>
-    </>
 }
 export default ProductDetail;

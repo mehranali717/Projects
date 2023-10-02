@@ -1,10 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
-import counterReducer from './Reducer';
-import Modalreduser from './Modal/Reducer'
+import AddtocartSlice from "./AddtToCartSlice"
 const store = configureStore({
   reducer: {
-    count: counterReducer,
-    modal: Modalreduser,
+    count: AddtocartSlice,
+    modal: AddtocartSlice,
+    addtocart : AddtocartSlice,
+    removeCartItems : AddtocartSlice,
   },
 });
 export default store;

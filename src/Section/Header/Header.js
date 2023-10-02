@@ -1,4 +1,4 @@
-import {Categories, Cart, Logo, Navbar} from "../../Components";
+import {Categories, Cart, Logo, Navbar } from "../../Components";
 import styled from "styled-components";
 import logo from "../../Assets/Images/logo.png"
 const Headertag = styled.header``;

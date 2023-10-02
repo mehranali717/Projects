@@ -1,5 +1,7 @@
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { addtocart } from "../../Redux/AddtToCartSlice";
 const Imagewrapper = styled.button`
   border:2px solid #02f2ea;
   height: 200px;
@@ -62,6 +64,7 @@ letter-spacing:2px;
 `
 const Product =({products})=>{
  const navigate = useNavigate()
+ const dispatch = useDispatch()
   const onClick =(item)=>{
     navigate("/productDetail",{
 			state:{
@@ -73,7 +76,7 @@ const Product =({products})=>{
                 <Imagewrapper onClick={()=>onClick(item)}><Image src={item.image} alt="some product"/></Imagewrapper>
                 <Title>{item.title.slice(0,12)}</Title>
                 <Span>3 products</Span>
-                <AddToCart>Add To Cart</AddToCart>
+                <AddToCart onClick={()=> dispatch(addtocart(item))}>Add To Cart</AddToCart>
             </Thumbnail>})}
     </Productouter>
 }
