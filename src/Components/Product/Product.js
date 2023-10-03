@@ -66,18 +66,18 @@ const Product =({products})=>{
  const navigate = useNavigate()
  const dispatch = useDispatch()
   const onClick =(item)=>{
-    navigate("/productDetail",{
+    navigate("/detail",{
 			state:{
 				item:item
 			}
 		})
   }
-    return <Productouter> {products.map((item, index)=>{return item.id===14 || <Thumbnail key={index}>
+    return <Productouter> {products.filter((item)=> item.id!==14 ).map((item, index)=>(<Thumbnail key={index}>
                 <Imagewrapper onClick={()=>onClick(item)}><Image src={item.image} alt="some product"/></Imagewrapper>
                 <Title>{item.title.slice(0,12)}</Title>
                 <Span>3 products</Span>
                 <AddToCart onClick={()=> dispatch(addtocart(item))}>Add To Cart</AddToCart>
-            </Thumbnail>})}
+            </Thumbnail>))}
     </Productouter>
 }
 export default Product;

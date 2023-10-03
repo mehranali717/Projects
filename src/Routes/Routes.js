@@ -1,6 +1,6 @@
 import { Navigate, useRoutes } from "react-router-dom";
 import Mainlayout from "../Layoutes/Mainlayout/Mainlayout";
-import {Blog, Contact, Coupons, Home, ProductDetail, Products, Shop} from "../Pages/";
+import {Blog, Contact, Coupons, Home, ProductDetail, Products, Shop} from "../Pages";
 const Routes =()=>{
     let routes = useRoutes([
         {
@@ -12,7 +12,7 @@ const Routes =()=>{
                 {path:"/blog", element:<Blog/>},
                 {path:"/coupons", element:<Coupons/>},
                 {path:"/contact", element:<Contact/>},
-                {path:"/productDetail", element:<ProductDetail/>},
+                {path:"/detail", element:<ProductDetail/>},
                 {path:"*" , element:<Navigate to="/home" />}
             ]
         }
