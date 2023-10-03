@@ -21,7 +21,12 @@ const addtocartSlice = createSlice({
     },
     decrement: (state, action) => {
       const item = state.cart.find((item) => item.id === action.payload);
-      if(item) item.quantity--;
+      if(item) ;
+      {
+        item.quantity--;
+        if(item.quantity === 0)
+        state.cart = state.cart.filter(i => i.id !== action.payload);
+    }
     },
     displayModal:(state)=>{
       state.isDisplayed=(!state.isDisplayed);

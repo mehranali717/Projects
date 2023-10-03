@@ -139,7 +139,6 @@ const ItemRemover = styled.span`
 const Cart = ({ icon }) => {
     const modal = useSelector((state)=>state.modal.isDisplayed);
     const cartItems = useSelector((state)=>state.addtocart.cart);
-    console.log({cartItems});
     const dispatch = useDispatch();
   return <>
            <IconWrapper>
@@ -157,15 +156,18 @@ const Cart = ({ icon }) => {
               </CartHeader>
               <Span>You are eligible for Shipping</Span>
               <Scrollable>
-              {cartItems.map((item , index)=>(
-                        <React.Fragment key={index}>
-                            <Body>
-                              <Image src={item.image } alt="img"/> 
-                              <Itemtitle>{item.title} (X{item.quantity})</Itemtitle>
-                              <ItemRemover onClick={()=> dispatch(removeCartItems(item.id))}><FontAwesomeIcon icon="xmark"/></ItemRemover>
-                            </Body>
-                          </React.Fragment>
-                      ))}
+              {cartItems.map((item, index) => (<React.Fragment key={index}>
+                          <Body>
+                            <Image src={item.image} alt="img" />
+                            <Itemtitle>
+                              {item.title} (X{item.quantity})
+                            </Itemtitle>
+                            <ItemRemover onClick={() => dispatch(removeCartItems(item.id))}>
+                              <FontAwesomeIcon icon="xmark" />
+                            </ItemRemover>
+                          </Body>
+                        </React.Fragment>)
+                      )}
                 </Scrollable>
                 <Totalbills><Subtotal>Subtotal :</Subtotal> <Subtotal>$119</Subtotal></Totalbills>
                  <Button onClick={()=>dispatch(displayModal())}>OK</Button>

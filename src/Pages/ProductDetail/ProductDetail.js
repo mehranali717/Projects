@@ -113,7 +113,7 @@ const ProductDetail =()=>{
                     <Pricing>${item.price}</Pricing>
                     <Bookorder>
                         <Counter><Countbtn icon="fa-minus" onClick={() => dispatch(decrement(item.id))} />
-                        <Qty>{cartItems.length>0 && cartItems.find(items =>items.id===item.id).quantity || 0} </Qty>
+                        <Qty>{cartItems.length>0?cartItems.find(items =>items.id===item.id).quantity:0} </Qty>
                         <Countbtn icon="fa-plus" onClick={() => dispatch(increment(item.id))}/>
                         </Counter>
                         <AddToCart onClick={()=> dispatch(addtocart(item))}>Add To Cart</AddToCart>
