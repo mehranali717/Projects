@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { displayModal, removeCartItems } from "../../Redux/AddtToCartSlice";
-import React, { useState } from "react";
+import React from "react";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 AOS.init();
@@ -54,6 +54,7 @@ const Cartwrapper = styled.div`
   background-color:#bfbfbf;
   right:0;
   top:0;
+  z-index:1;
 `
 const CartHeader = styled.div`
   display:flex;
@@ -139,6 +140,7 @@ const ItemRemover = styled.span`
 const Cart = ({ icon }) => {
     const modal = useSelector((state)=>state.modal.isDisplayed);
     const cartItems = useSelector((state)=>state.addtocart.cart);
+    const totalPrice = useSelector((state)=>state.addtocart.totalPrice);
     const dispatch = useDispatch();
   return <>
            <IconWrapper>
@@ -156,20 +158,20 @@ const Cart = ({ icon }) => {
               </CartHeader>
               <Span>You are eligible for Shipping</Span>
               <Scrollable>
-              {cartItems.map((item, index) => (<React.Fragment key={index}>
+              {cartItems.map((item, index) => ( <React.Fragment key={index}>
                           <Body>
                             <Image src={item.image} alt="img" />
                             <Itemtitle>
                               {item.title} (X{item.quantity})
                             </Itemtitle>
-                            <ItemRemover onClick={() => dispatch(removeCartItems(item.id))}>
+                            <ItemRemover onClick={() => dispatch(removeCartItems(item))}>
                               <FontAwesomeIcon icon="xmark" />
                             </ItemRemover>
                           </Body>
                         </React.Fragment>)
                       )}
                 </Scrollable>
-                <Totalbills><Subtotal>Subtotal :</Subtotal> <Subtotal>$119</Subtotal></Totalbills>
+                <Totalbills><Subtotal>Subtotal :</Subtotal> <Subtotal>${totalPrice}</Subtotal></Totalbills>
                  <Button onClick={()=>dispatch(displayModal())}>OK</Button>
               </Cartwrapper>}
   </>; 

@@ -37,7 +37,8 @@ const Footer =()=>{
             {title:"My Account",subtitle:accountSubtitles},
             {title:"Information",subtitle:informationSubtitles},
             {title:"Talk To Us",subtitle:contactSubtitles}
-        ]
+    ]
+
     return <Footerwrapper>
                 <Container>
                     <Sociallinks/>

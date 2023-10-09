@@ -5,7 +5,6 @@ const Mainlayout =()=>{
              <Header />
              <Outlet/>
              <Footer/>
-             {/* <Products /> */}
     </>
 }
 export default Mainlayout;

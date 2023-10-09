@@ -1,4 +1,8 @@
+import { Outlet } from "react-router-dom";
+
 const Blog =()=>{
-    return <h1>Hello From Blog</h1>
+    return <>
+        <Outlet />
+    </>
 }
 export default Blog;

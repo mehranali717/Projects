@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 // import { increment, decrement } from '../../Redux/AddtToCartSlice';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { addtocart, increment, decrement } from "../../Redux/AddtToCartSlice";
-import Cart from "../../Components/Cart/Cart";
+import "./ProductDetail.css";
 const Imagewrapper = styled.div`
 width:45%;
 height:500px;
@@ -81,7 +81,6 @@ border:1px solid #e0e2e3;
 font-size:16px;
 text-align:center;
 width:100%;
-cursor:pointer;
 color:#010f1c;
 padding:9px 30px;
 font-weight:500;
@@ -112,11 +111,18 @@ const ProductDetail =()=>{
                     <Paragraph>{item.description.slice(0,130)}</Paragraph>
                     <Pricing>${item.price}</Pricing>
                     <Bookorder>
-                        <Counter><Countbtn icon="fa-minus" onClick={() => dispatch(decrement(item.id))} />
-                        <Qty>{cartItems.length>0?cartItems.find(items =>items.id===item.id).quantity:0} </Qty>
-                        <Countbtn icon="fa-plus" onClick={() => dispatch(increment(item.id))}/>
+                        <Counter><Countbtn icon="fa-minus" onClick={() => dispatch(decrement(item))} />
+                            <Qty>{cartItems.find(items => item.id === items.id)
+                            ? cartItems.find(items => item.id === items.id).quantity
+                            : 0} </Qty>
+                        <Countbtn icon="fa-plus" onClick={() => dispatch(increment(item))}/>
                         </Counter>
-                        <AddToCart onClick={()=> dispatch(addtocart(item))}>Add To Cart</AddToCart>
+                        <AddToCart onClick={()=> dispatch(addtocart(item))}
+                        disabled={cartItems.some(cartItem => cartItem.id === item.id)}
+                        className={cartItems.some(cartItem => cartItem.id === item.id)?"disabled":''} >
+                            {cartItems.some(items => item.id === items.id)
+                            ? "Added To Cart"
+                            : "Add To Cart"}</AddToCart>
                     </Bookorder>
                 </PDWrapper>
             </Container>

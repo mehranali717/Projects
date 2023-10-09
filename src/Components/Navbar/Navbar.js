@@ -1,35 +1,39 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-const Navlist = styled.ul`
-    display:flex;
-    justify-content:space-between;
-`
-const Nav = styled.nav`
-width:550px;
-padding:0px 20px;
-`
-const Listitem = styled.li `
-color:#010f1c;
-font-size:14px;
-font-weight:500;
-letter-spacing:1px;
-transition:0.6s;
-cursor:pointer;
-text-transform:capitalize;
-&:hover {
-    color:#007aff;
-}
-`
+import "./Navbar.css";
 const Fontawesome = styled(FontAwesomeIcon)`
 font-size:11px;
 padding-left:3px;
 `
+const Navlink = styled(Link)`
+display:inline-block;
+text-decoration:none;
+position: relative;
+`
 const Navbar =({nawItems})=>{
-    return <Nav>
-                <Navlist>{nawItems.map((item , index)=><Link to={item.title}  key={index}>
-                <Listitem>{item.title}{(item.title!=="coupons" && item.title!=="contact")
-                &&<Fontawesome icon={item.icon}/>}</Listitem> </Link>)}</Navlist>
-    </Nav>
+        const dropdownContent = [
+            {blogItem:"Blog Standard", url:"blog"},
+            {blogItem:"Blog Grid",url:"blog-grid"},
+            {blogItem:"Blog List",url:"blog-list"},
+            {blogItem:"Blog Details Full Width", url:"blog-detail"},
+            {blogItem:"Blog Details", url:"blog-detail"},
+        ]
+    return <nav>
+                <ul className="navList">{nawItems.map((item , index)=><Navlink to={item.title}  key={index}>
+                <li className="listItems">{item.title}{(item.title!=="coupons" && item.title!=="contact")
+                &&<Fontawesome icon={item.icon}/>}
+                {item.title==="blog" && 
+                <div className="dropdown">
+                    <ul className="dropdownContent">
+                        {dropdownContent.map((item, index)=><li key={index}><Navlink to={item.url}>{item.blogItem}</Navlink></li>)}
+                    </ul>
+                </div>
+                }
+                </li>               
+                </Navlink>
+                
+                )}</ul>
+    </nav>
 }
 export default Navbar;
