@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 const addtocartSlice = createSlice({
   name: "addtocart",
-  initialState: {cart:[], isDisplayed: false, totalPrice:0},
+  initialState: {cart:[], isDisplayed: false, totalPrice:0, products:[]},
   reducers: {
     addtocart: (state, action) => {
       const itemInCart = state.cart.find((item)=>item.id ===action.payload.id)
@@ -36,8 +36,11 @@ const addtocartSlice = createSlice({
     },
     displayModal:(state)=>{
       state.isDisplayed=(!state.isDisplayed);
+    },
+    productsData : (state, action)=>{
+      state.products = action.payload;
     }
   },
 });
-export const {addtocart, removeCartItems, increment, decrement, displayModal} = addtocartSlice.actions;
+export const {addtocart, removeCartItems, increment, decrement, displayModal, productsData} = addtocartSlice.actions;
 export default addtocartSlice.reducer;

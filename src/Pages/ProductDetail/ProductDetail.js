@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { addtocart, increment, decrement } from "../../Redux/AddtToCartSlice";
 import "./ProductDetail.css";
+import { AddToCart } from "../../style";
 const Imagewrapper = styled.div`
 width:45%;
 height:500px;
@@ -75,22 +76,6 @@ const Qty = styled.span`
 color:#010f1c;
 font-size:20px;
 font-weight:500;
-`
-const AddToCart = styled.button`
-border:1px solid #e0e2e3;
-font-size:16px;
-text-align:center;
-width:100%;
-color:#010f1c;
-padding:9px 30px;
-font-weight:500;
-transition:0.6s;
-letter-spacing:2px;
-&:hover {
-    background-color:#010f1c;
-    border:1px solid #010f1c;
-    color:#fff;
-}
 `
 const Bookorder = styled.div`
 display:flex;

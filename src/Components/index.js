@@ -7,3 +7,4 @@ export {default as Footercontect} from "./Footer/Footercontect";
 export {default as Footerlist} from "./Footer/Footerlist";
 export {default as Sociallinks} from "./Footer/Sociallinks";
 export {default as Input} from "./Input/Input";
+export {default as Products } from "./Products/Products"

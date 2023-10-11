@@ -1,4 +1,8 @@
+import { useSelector } from "react-redux"
+import ProductS from "../../Components/Products/Products"
+
 const Products =()=>{
-    return <h1>Hello From Products</h1>
+    const data = useSelector((state)=>state.apiData.products)
+    return <ProductS products={data} />
 }
 export default Products

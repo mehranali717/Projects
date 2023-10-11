@@ -6,7 +6,8 @@ const store = configureStore({
     decrement:AddtocartSlice,
     modal: AddtocartSlice,
     addtocart : AddtocartSlice,
-    removeCartItems : AddtocartSlice
+    removeCartItems : AddtocartSlice,
+    apiData : AddtocartSlice,
   },
 });
 export default store;

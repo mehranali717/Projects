@@ -1,6 +1,10 @@
-import { Products } from "../../Section";
+import { Banner, Products, Trending } from "../../Section";
 
 const Home =()=>{
-    return <Products />
+    return <>
+                <Banner />
+                <Products />
+                <Trending />
+           </>
 }
 export default Home;

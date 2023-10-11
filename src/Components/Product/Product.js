@@ -86,7 +86,7 @@ const Product = ({ products }) => {
           .filter((item) => item.id !== 14)
           .map((item, index) => (
             <Thumbnail key={index}>
-              <Imagewrapper onClick={() => onClick(item)}>
+              <Imagewrapper  onClick={() => onClick(item)}>
                 <Image src={item.image} alt="some product" />
               </Imagewrapper>
               <Title>{item.title.slice(0, 12)}</Title>
